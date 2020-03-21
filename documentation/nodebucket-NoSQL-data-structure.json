@@ -1,0 +1,15 @@
+{
+  "empId": "1007",
+  "firstName": "Loren",
+  "lastName": "Wetzel",
+  "todo": [
+    {
+      "task": "Go do something"
+    }
+  ],
+  "done": [
+    {
+      "task": "Already did it"
+    }
+  ]
+}
