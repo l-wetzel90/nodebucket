@@ -1,3 +1,13 @@
+/*
+============================================
+; Title:  app.js
+; Author: Richard Krasso
+; Modified By: Loren Wetzel
+; Date:   18 March 2020
+; Description: setup mongoose schema/model
+;===========================================
+*/
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
