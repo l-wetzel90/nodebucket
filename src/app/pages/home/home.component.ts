@@ -1,10 +1,10 @@
 /*
 ============================================
-; Title:  app.js
+; Title:  home.component.ts
 ; Author: Richard Krasso
 ; Modified By: Loren Wetzel
 ; Date:   18 March 2020
-; Description: setup mongoose schema/model
+; Description: typescript file for home component
 ;===========================================
 */
 

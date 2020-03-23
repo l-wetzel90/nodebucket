@@ -1,3 +1,13 @@
+/*
+============================================
+; Title:  login.guard.ts
+; Author: Richard Krasso
+; Modified By: Loren Wetzel
+; Date:   18 March 2020
+; Description: login guard
+;===========================================
+*/
+
 import { Injectable } from "@angular/core";
 import {
   CanActivate,

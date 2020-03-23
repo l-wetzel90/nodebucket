@@ -1,3 +1,13 @@
+/*
+============================================
+; Title:  app.routing.ts
+; Author: Richard Krasso
+; Modified By: Loren Wetzel
+; Date:   18 March 2020
+; Description: router
+;===========================================
+*/
+
 import { Routes } from "@angular/router";
 import { BaseLayoutComponent } from "./shared/base-layout/base-layout.component";
 import { HomeComponent } from "./pages/home/home.component";

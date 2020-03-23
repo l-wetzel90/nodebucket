@@ -1,3 +1,13 @@
+/*
+============================================
+; Title:  base-layout.component.ts
+; Author: Richard Krasso
+; Modified By: Loren Wetzel
+; Date:   18 March 2020
+; Description: ts file for base-layout component
+;===========================================
+*/
+
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
