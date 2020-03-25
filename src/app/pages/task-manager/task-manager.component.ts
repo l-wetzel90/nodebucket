@@ -1,8 +1,8 @@
 /*
 ============================================
 ; Title:  task-manager.component.ts
-; Author: Richard Krasso
-; Modified By: Loren Wetzel
+; Author: Loren Wetzel
+; Modified By:
 ; Date:   18 March 2020
 ; Description: ts file for task-manager component
 ;===========================================
@@ -17,6 +17,8 @@ import {
 import { Router } from "@angular/router";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
+import { MatDialog } from "@angular/material";
+import { TaskCreateDialogComponent } from "src/app/shared/task-create-dialog/task-create-dialog.component";
 
 @Component({
   selector: "app-task-manager",
@@ -27,38 +29,62 @@ export class TaskManagerComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private dialog: MatDialog
   ) {}
 
+  //get empId from cookie for api calls
   empId = this.cookieService.get("session_user");
 
-  todo: [];
-  done: [];
+  //variables
+  todo: string[] = [];
+  done: string[] = [];
+  name: string;
+  // item: string;
+
   ngOnInit() {
-    this.getTodo();
+    this.getLists();
   }
-  // todo = ["Get to work", "Pick up groceries", "Go home", "Fall asleep"];
 
-  // done = ["Get up", "Brush teeth", "Take a shower", "Check e-mail", "Walk dog"];
-
-  getTodo() {
+  getLists() {
     this.http.get("/api/employees/" + this.empId + "/tasks").subscribe(res => {
       if (res) {
-        let jasonTodo = JSON.stringify(eval(res['todo']));
-        console.log(jasonTodo);
-
-
-      }
+        this.name= res['firstName']
+        this.todo = res["todo"];
+        this.done = res["done"];
+      } else {
+        err => console.log(err);
+      } //end of if else
     }); //end of .subscribe
-  }
+  } //end of getLists
 
-  drop(event: CdkDragDrop<string[]>) {
+  updateList() {
+    this.http
+      .put("/api/employees/" + this.empId + "/tasks", {
+        todo: this.todo,
+        done: this.done
+      })
+      .subscribe(
+        res => {
+          if (res) {
+            console.log("updated");
+            this.todo = res["todo"];
+            this.done = res["done"];
+          } else {
+            err => console.log(err);
+          } //end of if/else
+        } //end of res
+      ); //end of subscribe
+  } //end of updateList
+
+  drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
+      // this.updateList();
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -66,6 +92,54 @@ export class TaskManagerComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      // this.updateList();
     }
-  }
+    //update
+    this.updateList();
+  } //end of drop
+
+  deleteOne(taskId) {
+    this.http
+      .delete("/api/employees/" + this.empId + "/tasks/" + taskId)
+      .subscribe(
+        res => {
+          if (res) {
+            console.log("deleting" + taskId);
+            this.todo = res["todo"];
+            this.done = res["done"];
+          } else {
+            err => console.log(err);
+          }
+        } //end of res
+      ); //end subscribe
+  } //end of delete
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(TaskCreateDialogComponent, {
+      width: "400px"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+      this.createTask(result);
+    });
+  }//end of Dialog
+
+  createTask(item) {
+    // console.log(item);
+    this.http
+      .post("/api/employees/" + this.empId + "/tasks", item)
+      .subscribe(
+        res => {
+          if (res) {
+            console.log("created");
+            //reload component
+            this.todo = res["todo"];
+            this.done = res["done"];
+          } else {
+            err => console.log(err);
+          } //end if/else
+        } //end of res
+      ); //end of subscribe
+  } //end of create
 }

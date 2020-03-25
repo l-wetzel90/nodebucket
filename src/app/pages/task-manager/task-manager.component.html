@@ -1,42 +1,98 @@
 <!-- /*
 ============================================
 ; Title:  home.component.html
-; Author: Richard Krasso
-; Modified By: Loren Wetzel
+; Author: Loren Wetzel
+; Modified By:
 ; Date:   18 March 2020
 ; Description: home component html
 ;===========================================
 */ -->
 
-<h1>{{empId}}</h1>
-<div fxLayout="row" class="myContainer">
 
-<div fxFlex class="example-container">
-  <h2>To do</h2>
+<div class="myContainer">
 
-  <div
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="[doneList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
-  </div>
+<div fxLayout="row">
+  <h2 class="title"> Hey {{name}}, here are your tasks.</h2>
+  <div fxFlex></div>
+  <button mat-button (click)="openDialog()">Create task</button>
 </div>
 
-<div fxFlex class="example-container">
-  <h2>Done</h2>
+<div fxLayout="row" fxLayoutGap="20px" >
 
-  <div
-    cdkDropList
-    #doneList="cdkDropList"
-    [cdkDropListData]="done"
-    [cdkDropListConnectedTo]="[todoList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+  <div fxFlex>
+    <mat-card>
+      <mat-card-title class="title">
+        ToDo
+      </mat-card-title>
+      <hr>
+
+      <mat-card-content>
+        <mat-list
+          cdkDropList
+          #todoList="cdkDropList"
+          [cdkDropListData]="todo"
+          [cdkDropListConnectedTo]="[doneList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)"
+          mat-list>
+
+          <mat-list-item class="example-box" *ngFor="let item of todo" cdkDrag>{{item.text}}
+            <div fxFlex></div>
+
+            <button mat-icon-button [matMenuTriggerFor]="deleteTask" class="ml-xs">
+              <mat-icon class="icon">menu</mat-icon>
+            </button>
+
+            <mat-menu #deleteTask="matMenu" x-position="before">
+              <button (click)="deleteOne(item._id)" mat-menu-item>
+                Remove
+              </button>
+            </mat-menu>
+
+            <mat-divider></mat-divider>
+          </mat-list-item>
+
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
   </div>
-</div>
 
+  <div fxFlex>
+    <mat-card>
+      <mat-card-title class="title">
+        Done
+      </mat-card-title>
+      <hr>
+
+      <mat-card-content>
+        <mat-list
+          cdkDropList
+          #doneList="cdkDropList"
+          [cdkDropListData]="done"
+          [cdkDropListConnectedTo]="[todoList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)" mat-list>
+
+          <mat-list-item class="example-box" *ngFor="let item of done" cdkDrag>{{item.text}}
+            <div fxFlex></div>
+
+            <button mat-icon-button [matMenuTriggerFor]="deleteTask" class="ml-xs">
+              <mat-icon class="icon">menu</mat-icon>
+            </button>
+
+            <mat-menu #deleteTask="matMenu" x-position="before">
+              <button (click)="deleteOne(item._id)" mat-menu-item>
+                Remove
+              </button>
+            </mat-menu>
+
+            <mat-divider></mat-divider>
+          </mat-list-item>
+
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>
 </div>
