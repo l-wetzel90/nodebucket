@@ -1,5 +1,6 @@
 .logo {
   margin-left: 75px;
+  /* margin-left: 5%; */
   font-size: 24px;
   font-weight: lighter;;
 }
@@ -14,6 +15,8 @@
 }
 
 .main-content {
+  /* padding-left: 5%; */
+
   padding-left: 30px;
 }
 
@@ -26,8 +29,9 @@
 .footer-content {
   font-size: 16px;
   font-weight: lighter;
-  padding-left: 100px;
+  /* padding-left: 100px; */
   letter-spacing: 3px;
+  padding-left: 5%;
 }
 
 .bu-link {

@@ -30,20 +30,19 @@ export const AppRoutes: Routes = [
         component: HomeComponent
       },
       {
-        path: "about",
-        canActivate: [AuthGuard],
-        component: AboutComponent
-      },
-
-      {
         path: "tasks",
         canActivate: [AuthGuard],
         component: TaskManagerComponent
       },
       {
         path: "taskCreate",
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         component: TaskCreateDialogComponent
+      },
+      {
+        path: "about",
+        canActivate: [AuthGuard],
+        component: AboutComponent
       }
     ]
   },

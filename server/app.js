@@ -209,3 +209,19 @@ app.delete("/api/employees/:empId/tasks/:taskId", function(req, res, next) {
 http.createServer(app).listen(port, function() {
   console.log(`Application started and listening on port: ${port}`);
 }); // end http create server function
+
+/* ************* JUST IN CASE PROXY CONFIG
+ernie shared
+
+{
+  "/api/*": {
+    "target": "http://127.0.0.1:3000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
+
+ng serve -- --proxy-config proxy.conf.json
+
+*/

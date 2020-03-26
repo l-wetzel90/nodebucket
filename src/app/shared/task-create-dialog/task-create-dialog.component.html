@@ -1,9 +1,9 @@
-<h2 mat-dialog-title> add new task</h2>
+<h2 mat-dialog-title>Create a task</h2>
 
 <mat-dialog-content [formGroup]="form">
   <mat-form-field style="width: 350px;">
     <input matInput
-      placeholder="Whats up?"
+      placeholder="What you need to do??"
       formControlName="text"
       minlength="3"
       (keydown.enter)="submit()" />

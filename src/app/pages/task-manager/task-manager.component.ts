@@ -26,53 +26,64 @@ import { TaskCreateDialogComponent } from "src/app/shared/task-create-dialog/tas
   styleUrls: ["./task-manager.component.css"]
 })
 export class TaskManagerComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private http: HttpClient,
-    private cookieService: CookieService,
-    private dialog: MatDialog
-  ) {}
-
-  //get empId from cookie for api calls
-  empId = this.cookieService.get("session_user");
-
   //variables
-  todo: string[] = [];
-  done: string[] = [];
-  name: string;
+  //sessionUser: string
+  // todo: string[] = [];
+  task:any;
+  todo: any;
+  done: any;
+  name: any;
+  empId: any;
   // item: string;
 
-  ngOnInit() {
-    this.getLists();
+  constructor(private router: Router, private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
+    //get empId from cookie for api calls
+    // this.sessionUser = this.cookieService.get("session_user");
+    this.empId = this.cookieService.get("session_user");
+
+    this.http.get('/api/employees/' + this.empId + '/tasks').subscribe(
+      res => {
+        this.task = res;
+        this.name = this.task.firstName;
+        this.todo = this.task.todo;
+        this.done = this.task.done;
+      },
+      err => {
+        console.log(err);
+      }
+    ); //end of .subscribe
   }
 
-  getLists() {
-    this.http.get("/api/employees/" + this.empId + "/tasks").subscribe(res => {
-      if (res) {
-        this.name= res['firstName']
-        this.todo = res["todo"];
-        this.done = res["done"];
-      } else {
-        err => console.log(err);
-      } //end of if else
-    }); //end of .subscribe
-  } //end of getLists
+  ngOnInit() {}
 
-  updateList() {
+  /**
+  * create new task dialog
+  */
+  openDialog(): void {
+    const dialogRef = this.dialog.open(TaskCreateDialogComponent, {
+      width: "400px"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+      this.createTask(result);
+    });
+  } //end of Dialog
+
+  // updateTasks(todo, done){
+  //   return this.http.put('/api/employees/' + this.empId + '/tasks',{todo,done});
+  // }
+  updateList(todo, done) {
     this.http
       .put("/api/employees/" + this.empId + "/tasks", {
-        todo: this.todo,
-        done: this.done
+        todo,
+        done
       })
       .subscribe(
         res => {
-          if (res) {
-            console.log("updated");
-            this.todo = res["todo"];
-            this.done = res["done"];
-          } else {
-            err => console.log(err);
-          } //end of if/else
+          this.task = res;
+            this.todo = this.task.todo;
+            this.done = this.task.done;
         } //end of res
       ); //end of subscribe
   } //end of updateList
@@ -95,51 +106,34 @@ export class TaskManagerComponent implements OnInit {
       // this.updateList();
     }
     //update
-    this.updateList();
+    this.updateList(this.todo,this.done);
   } //end of drop
 
   deleteOne(taskId) {
     this.http
-      .delete("/api/employees/" + this.empId + "/tasks/" + taskId)
-      .subscribe(
-        res => {
-          if (res) {
+      .delete("/api/employees/" + this.empId + "/tasks/" + taskId).subscribe(res => {
             console.log("deleting" + taskId);
             this.todo = res["todo"];
             this.done = res["done"];
-          } else {
-            err => console.log(err);
-          }
-        } //end of res
+        },//end of res
+            err => {
+              console.log(err);
+        }
       ); //end subscribe
   } //end of delete
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(TaskCreateDialogComponent, {
-      width: "400px"
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("The dialog was closed");
-      this.createTask(result);
-    });
-  }//end of Dialog
-
   createTask(item) {
     // console.log(item);
-    this.http
-      .post("/api/employees/" + this.empId + "/tasks", item)
-      .subscribe(
-        res => {
-          if (res) {
-            console.log("created");
-            //reload component
-            this.todo = res["todo"];
-            this.done = res["done"];
-          } else {
-            err => console.log(err);
-          } //end if/else
-        } //end of res
-      ); //end of subscribe
+    this.http.post("/api/employees/" + this.empId + "/tasks", item).subscribe(
+      res => {
+          console.log("created");
+          //reload component
+          this.todo = res["todo"];
+          this.done = res["done"];
+        },//end of res
+        err => {
+          console.log(err);
+      }
+    ); //end of subscribe
   } //end of create
-}
+}//end of component

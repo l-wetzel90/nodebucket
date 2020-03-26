@@ -33,13 +33,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      empId: [
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.pattern("^[0-9]*$")
-        ])
-      ]
+      empId: [null, Validators.compose([ Validators.required, Validators.pattern("^[0-9]*$") ])]
     });
   }
 
@@ -50,7 +44,7 @@ export class SignInComponent implements OnInit {
     this.http.get("/api/employees/" + empId).subscribe(res => {
       if (res) {
         this.cookieService.set("session_user", empId);
-        this.router.navigate(["tasks"]);
+        this.router.navigate([""]);
       } else {
         this.snackBar.open(
           "The employee id you entered is invalid, please try again.",
