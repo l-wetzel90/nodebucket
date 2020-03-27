@@ -23,7 +23,6 @@
         <form [formGroup]="form" (ngSubmit)="login(); form.reset()" #loginForm="ngForm">
 
           <mat-card-content>
-
             <mat-form-field fxFlex>
 
               <input matInput [formControl]="form.controls['empId']" placeholder="Employee ID" />

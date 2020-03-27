@@ -3,7 +3,7 @@
 <mat-dialog-content [formGroup]="form">
   <mat-form-field style="width: 350px;">
     <input matInput
-      placeholder="What you need to do??"
+      placeholder="Add another task?"
       formControlName="text"
       minlength="3"
       (keydown.enter)="submit()" />
@@ -14,14 +14,10 @@
   <small
     *ngIf="form.controls['text'].hasError('minlength') &&
     form.controls['text'].touched">
-    the name must be 3
-    characters</small>
+    the name must be 3 characters</small>
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-button
-    (click)="close()">Close</button>
-  <button mat-button
-    [disabled]="!form.valid"
-    (click)="submit()">Save</button>
+  <button mat-button (click)="close()">Close</button>
+  <button mat-button [disabled]="!form.valid" (click)="submit()">Save</button>
 </mat-dialog-actions>

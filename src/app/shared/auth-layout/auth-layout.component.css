@@ -30,6 +30,10 @@
   letter-spacing: 3px;
 }
 
+footer a{
+  color: #673ab7;
+}
+
 .bu-link {
   text-decoration: none;
 }
