@@ -1,4 +1,5 @@
 mat-card {
+  background-color: yellow;
   /* margin-top: 15%; */
   width: 50%;
   /* margin-left: 25%; */
@@ -13,4 +14,8 @@ mat-card-subtitle {
 }
 mat-card-content {
   text-align: center;
+}
+h1{
+  color: red;
+  font-weight: bolder;
 }
