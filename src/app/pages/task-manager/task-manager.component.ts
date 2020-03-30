@@ -1,8 +1,8 @@
 /*
 ============================================
 ; Title:  task-manager.component.ts
-; Author: Loren Wetzel
-; Modified By:
+; Author: Richard Krasso
+; Modified By: Loren Wetzel
 ; Date:   18 March 2020
 ; Description: ts file for task-manager component
 ;===========================================
@@ -14,11 +14,9 @@ import {
   moveItemInArray,
   transferArrayItem
 } from "@angular/cdk/drag-drop";
-// import { Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
-import { MatDialog } from "@angular/material";
-import { TaskCreateDialogComponent } from "src/app/shared/task-create-dialog/task-create-dialog.component";
 
 @Component({
   selector: "app-task-manager",
@@ -26,98 +24,41 @@ import { TaskCreateDialogComponent } from "src/app/shared/task-create-dialog/tas
   styleUrls: ["./task-manager.component.css"]
 })
 export class TaskManagerComponent implements OnInit {
-  //variables
-  // sessionUser: any;
-  tasks: any;
-  todo: any;
-  done: any;
-  name: any;
-  empId: any;
-  message: any;
-
   constructor(
+    private router: Router,
     private http: HttpClient,
-    private cookieService: CookieService,
-    private dialog: MatDialog
-  ) {
-    //get empId from cookie for api calls
-    this.empId = this.cookieService.get("session_user");
-    this.message = "";
+    private cookieService: CookieService
+  ) {}
 
-    // gets and sets lists
-    this.http.get("/api/employees/" + this.empId + "/tasks").subscribe(
-      res => {
-        this.tasks = res;
-        this.name = this.tasks.firstName;
-        this.todo = this.tasks.todo;
-        this.done = this.tasks.done;
-        if (this.todo === 0) {
-          this.message =
-            "You don't have any tasks.  Add one below by clicking on the menu";
-        } else {
-          this.message = "Here are your tasks";
-        }
-      },
-      err => {
-        console.log(err);
+  empId = this.cookieService.get("session_user");
+
+  todo: [];
+  done: [];
+  ngOnInit() {
+    this.getTodo();
+  }
+  // todo = ["Get to work", "Pick up groceries", "Go home", "Fall asleep"];
+
+  // done = ["Get up", "Brush teeth", "Take a shower", "Check e-mail", "Walk dog"];
+
+  getTodo() {
+    this.http.get("/api/employees/" + this.empId + "/tasks").subscribe(res => {
+      if (res) {
+        let jasonTodo = JSON.stringify(eval(res['todo']));
+        console.log(jasonTodo);
+
+
       }
-    ); //end of .subscribe
-  } //end of constructor
-
-  ngOnInit() {}
-
-  /**
-   * Create new task dialog
-   */
-  openDialog() {
-    const dialogRef = this.dialog.open(TaskCreateDialogComponent, {
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(data => {
-      if (data) {
-        this.http
-          .post("/api/employees/" + this.empId + "/tasks", {
-            text: data.text
-          })
-          .subscribe(
-            res => {
-              this.tasks = res;
-              this.todo = this.tasks.todo;
-              this.done = this.tasks.done;
-            }, //end of res
-            err => {
-              console.log(err);
-            }
-          ); //end of subscribe
-      } //end of if
-    });
-  } //end of Dialog
-
-  /**
-   *
-   * @param todo
-   * @param done
-   */
-  updateList(todo, done) {
-    return this.http.put("/api/employees/" + this.empId + "/tasks", {
-      todo,
-      done
-    });
+    }); //end of .subscribe
   }
 
-  /**
-   * Drag and drop plus update list
-   * @param event
-   */
-  drop(event: CdkDragDrop<any[]>) {
+  drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
-      console.log("Moved task in existing column");
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -125,40 +66,6 @@ export class TaskManagerComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-      console.log("Moved tasks to a new column");
     }
-    //update
-    this.updateList(this.todo, this.done).subscribe(
-      res => {
-        this.tasks = res;
-        this.todo = this.tasks.todo;
-        this.done = this.tasks.done;
-      },
-      err => {
-        console.log("Error saving update tasks");
-        console.log(err);
-      }
-    );
-  } //end of drop
-
-  /**
-   *
-   * @param taskId
-   */
-  deleteOne(taskId) {
-    if (taskId) {
-      this.http
-        .delete("/api/employees/" + this.empId + "/tasks/" + taskId)
-        .subscribe(
-          res => {
-            this.tasks = res;
-            this.todo = this.tasks.todo;
-            this.done = this.tasks.done;
-          }, //end of res
-          err => {
-            console.log(err);
-          }
-        ); //end subscribe
-    } //end of if
-  } //end of delete
-} //end of component
+  }
+}
