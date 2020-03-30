@@ -17,24 +17,32 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { BaseLayoutComponent } from "./shared/base-layout/base-layout.component";
-import { AuthLayoutComponent } from "./shared/auth-layout/auth-layout.component";
-import { HomeComponent } from "./pages/home/home.component";
+import { CookieService } from "ngx-cookie-service";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 import { FlexLayoutModule } from "@angular/flex-layout";
+
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { LoginComponent } from "./pages/login/login.component";
-import { AboutComponent } from "./pages/about/about.component";
-import { MatCardModule, MatInputModule } from "@angular/material";
-import { CookieService } from "ngx-cookie-service";
-import { SignInComponent } from "./pages/sign-in/sign-in.component";
-import { LoginGuard } from "./login.guard";
-import {AuthGuard}from "./auth.guard";
-import { TaskManagerComponent } from './pages/task-manager/task-manager.component';
-import {DragDropModule } from "@angular/cdk/drag-drop";
+import {
+  MatCardModule,
+  MatInputModule,
+  MatDividerModule,
+  MatDialogModule,
+  MatListModule,
+  MatMenuModule,
+} from "@angular/material";
 
-import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { AuthGuard } from "./shared/guards/auth.guard";
+import { BaseLayoutComponent } from "./shared/base-layout/base-layout.component";
+import { TaskCreateDialogComponent } from './shared/task-create-dialog/task-create-dialog.component';
+import { AuthLayoutComponent } from "./shared/auth-layout/auth-layout.component";
+import { HomeComponent } from "./pages/home/home.component";
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { SignInComponent } from "./pages/sign-in/sign-in.component";
+import { TaskManagerComponent } from "./pages/task-manager/task-manager.component";
+import { AboutComponent } from "./pages/about/about.component";
 
 @NgModule({
   declarations: [
@@ -42,10 +50,11 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     BaseLayoutComponent,
     AuthLayoutComponent,
     HomeComponent,
-    LoginComponent,
     AboutComponent,
     SignInComponent,
-    TaskManagerComponent
+    TaskManagerComponent,
+    NotFoundComponent,
+    TaskCreateDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -65,8 +74,13 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatCardModule,
     MatInputModule,
     DragDropModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDividerModule,
+    MatDialogModule,
+    MatListModule,
+    MatMenuModule
   ],
+  entryComponents:[TaskCreateDialogComponent],
   providers: [CookieService, AuthGuard],
   bootstrap: [AppComponent]
 })

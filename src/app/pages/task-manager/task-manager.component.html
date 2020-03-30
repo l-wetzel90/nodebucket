@@ -1,42 +1,110 @@
 <!-- /*
 ============================================
 ; Title:  home.component.html
-; Author: Richard Krasso
-; Modified By: Loren Wetzel
+; Author: Loren Wetzel
+; Modified By:
 ; Date:   18 March 2020
 ; Description: home component html
 ;===========================================
 */ -->
 
-<h1>{{empId}}</h1>
-<div fxLayout="row" class="myContainer">
+<div fxLayout="column" class="myContainer">
 
-<div fxFlex class="example-container">
-  <h2>To do</h2>
+  <div fxLayout="row">
+    <p>Hey {{name}}, how you doing? <br><br>
+      {{message}} </p>
 
-  <div
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="[doneList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
   </div>
-</div>
+  <hr>
 
-<div fxFlex class="example-container">
-  <h2>Done</h2>
+  <!-- container for lists -->
+  <div fxLayout="row" fxLayoutGap="20px" class="tasks-container">
 
-  <div
-    cdkDropList
-    #doneList="cdkDropList"
-    [cdkDropListData]="done"
-    [cdkDropListConnectedTo]="[todoList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+    <!-- todo list -->
+    <div fxFlex>
+
+      <mat-card class="mat-elevation-z0">
+        <!-- title with a menu to create new task  -->
+        <mat-card-title class="task-title">
+          ToDo
+          <div fxFlex></div>
+          <button [matMenuTriggerFor]="taskMenu" mat-button x-position="before">
+            <mat-icon color="accent">menu</mat-icon>
+          </button>
+          <mat-menu #taskMenu="matMenu" x-position="before">
+            <button mat-menu-item (click)="openDialog()">Need to add more?</button>
+          </mat-menu>
+        </mat-card-title>
+
+        <!-- list is inside card content -->
+        <mat-card-content>
+          <!-- setup for the drag and drop -->
+          <div fxLayout="column" fxLayoutGap="10px" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo"
+            [cdkDropListConnectedTo]="[doneList]" class="task-list" (cdkDropListDropped)="drop($event)">
+
+            <div *ngFor="let item of todo" cdkDrag>
+              <!-- iterating over list and assigning each task to a card -->
+              <mat-card class="mat-elevation-z0 task-card" fxFlex>
+
+                <mat-card-subtitle style="height: 10% !important;" class="task-functions">
+                  <div fxFlex></div>
+                  <!-- button for menu for pop up to delete -->
+                  <button [matMenuTriggerFor]="deleteTodoTask" mat-icon-button class="ml-xs">
+                    <mat-icon color="accent">menu</mat-icon>
+                  </button>
+
+                  <mat-menu #deleteTodoTask="matMenu" x-position="before">
+                    <button class="matButton" (click)="deleteOne(item._id)" mat-menu-item>
+                      Remove
+                    </button>
+                  </mat-menu>
+                </mat-card-subtitle>
+                <!-- name of task -->
+                <mat-card-content> {{item.text}} </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- done list -->
+    <div fxFlex>
+      <mat-card class="mat-elevation-z0">
+        <mat-card-title class="task-title">
+          Done
+        </mat-card-title>
+
+        <!-- list is inside card content -->
+        <mat-card-content style="padding-top: 7px;">
+
+          <!-- setup for the drag and drop -->
+          <div fxLayout="column" fxLayoutGap="10px" cdkDropList #doneList="cdkDropList" [cdkDropListData]="done"
+            [cdkDropListConnectedTo]="[todoList]" class="task-list" (cdkDropListDropped)="drop($event)">
+
+            <div *ngFor="let item of done" cdkDrag>
+              <!-- iterating over list and assigning each task to a card -->
+              <mat-card class="mat-elevation-z0 task-card" fxFlex>
+                <mat-card-subtitle style="height: 10% !important;" class="task-functions">
+                  <div fxFlex></div>
+                  <!-- button for menu for pop up to delete -->
+                  <button [matMenuTriggerFor]="deleteDoneTask" mat-icon-button class="ml-xs">
+                    <mat-icon color="accent">menu</mat-icon>
+                  </button>
+                  <mat-menu #deleteDoneTask="matMenu" x-position="before">
+                    <button class="matButton" (click)="deleteOne(item._id)" mat-menu-item>
+                      Remove
+                    </button>
+                  </mat-menu>
+                </mat-card-subtitle>
+                <!-- name of task -->
+                <mat-card-content> {{item.text}} </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </mat-card-content>
+
+      </mat-card>
+    </div>
   </div>
-</div>
-
 </div>
