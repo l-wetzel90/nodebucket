@@ -31,7 +31,7 @@ app.use("/", express.static(path.join(__dirname, "../dist/nodebucket")));
 /**
  * Variables
  */
-const port = 3000; // server port
+const port = process.env.PORT || 3000; // server port
 
 //require employee model
 const Employee = require("./models/employees");
@@ -47,6 +47,7 @@ mongoose
   .connect(conn, {
     promiseLibrary: require("bluebird"),
     useUnifiedTopology: true,
+    useCreateIndex: true,
     useNewUrlParser: true
   })
   .then(() => {
