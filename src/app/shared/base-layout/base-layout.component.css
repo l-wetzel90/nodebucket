@@ -1,5 +1,6 @@
 .logo {
   margin-left: 75px;
+  /* margin-left: 5%; */
   font-size: 24px;
   font-weight: lighter;;
 }
@@ -7,9 +8,9 @@
 .navbar-container {
   padding: 5px;
 }
+
 nav a:hover{
   color: #00e676;
-
 }
 
 .navbar-link {
@@ -18,8 +19,6 @@ nav a:hover{
 }
 
 .main-content {
-  /* padding-left: 5%; */
-
   padding-left: 30px;
 }
 
@@ -32,16 +31,15 @@ nav a:hover{
 .footer-content {
   font-size: 16px;
   font-weight: lighter;
-  padding-left: 100px;
+  /* padding-left: 100px; */
   letter-spacing: 3px;
-<<<<<<< HEAD
-=======
   padding-left: 5%;
 }
+
 footer a{
   color: #00e676;
->>>>>>> parent of 21d350c... finished about page
 }
+
 .bu-link {
   text-decoration: none;
 }

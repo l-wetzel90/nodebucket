@@ -1,5 +1,6 @@
 .main-welcome {
-  margin-top: 30px;
+  width: 60%;
+  margin: 20px auto 0;
 }
 
 .title {
@@ -10,7 +11,4 @@
 .subtitle {
   text-align: center;
   font-size: 14px;
-}
-.p-title{
-
 }
