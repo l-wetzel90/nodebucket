@@ -12,7 +12,7 @@
 
   <!-- navigation -->
   <nav fxFlex>
-    <mat-toolbar color="primary">
+    <mat-toolbar>
       <!-- navbar container -->
       <div class="navbar-container">
         <!-- logo -->
@@ -23,7 +23,17 @@
       </div>
 
       <div fxFlex></div>
-     <button mat-button class="navbar-link" (click)="logout()">Logout</button>
+      <button     class="navbar-link"
+                  routerLink="/login"
+                  mat-button>Login</button>
+     <!-- <button *ngIf="!isLoggedIn()"
+                  class="navbar-link"
+                  routerLink="/login"
+                  mat-button>Login</button>
+     <button *ngIf="isLoggedIn()"
+                  mat-button
+                  class="navbar-link"
+                  (click)="logout()">Logout</button> -->
     </mat-toolbar>
   </nav>
 
@@ -37,10 +47,10 @@
   <!-- footer -->
   <div fxFlex>
     <footer class="footer">
-      <mat-toolbar class="footer-content" color="primary">
+      <mat-toolbar class="footer-content">
         <p>
           &copy; {{year | date: 'yyyy'}} - nodebucket - <a href="https://www.bellevue.edu/" class="bu-link"
-            target="_blank" >Bellevue University</a>
+            target="_blank">Bellevue University</a>
         </p>
       </mat-toolbar>
     </footer>
