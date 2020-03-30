@@ -8,9 +8,9 @@
 .navbar-container {
   padding: 5px;
 }
+
 nav a:hover{
   color: #00e676;
-
 }
 
 .navbar-link {
@@ -19,8 +19,6 @@ nav a:hover{
 }
 
 .main-content {
-  /* padding-left: 5%; */
-
   padding-left: 30px;
 }
 
@@ -37,9 +35,11 @@ nav a:hover{
   letter-spacing: 3px;
   padding-left: 5%;
 }
+
 footer a{
   color: #00e676;
 }
+
 .bu-link {
   text-decoration: none;
 }
