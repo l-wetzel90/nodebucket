@@ -7,6 +7,10 @@
 .navbar-container {
   padding: 5px;
 }
+nav a:hover{
+  color: #00e676;
+
+}
 
 .navbar-link {
   font-size: 24px;
@@ -14,6 +18,8 @@
 }
 
 .main-content {
+  /* padding-left: 5%; */
+
   padding-left: 30px;
 }
 
@@ -28,8 +34,14 @@
   font-weight: lighter;
   padding-left: 100px;
   letter-spacing: 3px;
+<<<<<<< HEAD
+=======
+  padding-left: 5%;
 }
-
+footer a{
+  color: #00e676;
+>>>>>>> parent of 21d350c... finished about page
+}
 .bu-link {
   text-decoration: none;
 }
