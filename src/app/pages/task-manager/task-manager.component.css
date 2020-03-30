@@ -9,8 +9,13 @@
 */
 
 .myContainer{
-  width: 50%;
+  width: 70%;
   margin: 3% auto 0;
+}
+@media screen and (max-width: 900px) {
+  .myContainer {
+    width: 100%;
+  }
 }
 /* .mat-card{
   background-color: #69f0ae;

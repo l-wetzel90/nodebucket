@@ -147,10 +147,7 @@ export class TaskManagerComponent implements OnInit {
    */
   deleteOne(taskId) {
     if (taskId) {
-      this.http
-        .delete("/api/employees/" + this.empId + "/tasks/" + taskId)
-        .subscribe(
-          res => {
+      this.http.delete("/api/employees/" + this.empId + "/tasks/" + taskId).subscribe(res => {
             this.tasks = res;
             this.todo = this.tasks.todo;
             this.done = this.tasks.done;
@@ -159,6 +156,8 @@ export class TaskManagerComponent implements OnInit {
             console.log(err);
           }
         ); //end subscribe
-    } //end of if
+    }// end of if
   } //end of delete
+
+
 } //end of component
