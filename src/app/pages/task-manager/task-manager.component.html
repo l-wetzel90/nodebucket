@@ -40,7 +40,7 @@
         <mat-card-content>
           <!-- setup for the drag and drop -->
           <div fxLayout="column" fxLayoutGap="10px" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo"
-            [cdkDropListConnectedTo]="[doneList]" class="task-list" (cdkDropListDropped)="drop($event)">
+            [cdkDropListConnectedTo]="[doneList, inProgressList]" class="task-list" (cdkDropListDropped)="drop($event)">
 
             <div *ngFor="let item of todo" cdkDrag>
               <!-- iterating over list and assigning each task to a card -->
@@ -68,6 +68,45 @@
       </mat-card>
     </div>
 
+    <!-- in progress list  -->
+    <div fxFlex>
+      <mat-card class="mat-elevation-z0">
+        <mat-card-title class="task-title">
+          In Progress
+        </mat-card-title>
+
+        <!-- list is inside card content -->
+        <mat-card-content style="padding-top: 7px;">
+
+          <!-- setup for the drag and drop -->
+          <div fxLayout="column" fxLayoutGap="10px" cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="inProgress"
+            [cdkDropListConnectedTo]="[todoList, doneList]" class="task-list" (cdkDropListDropped)="drop($event)">
+
+            <div *ngFor="let item of inProgress" cdkDrag>
+              <!-- iterating over list and assigning each task to a card -->
+              <mat-card class="mat-elevation-z0 task-card" fxFlex>
+                <mat-card-subtitle style="height: 10% !important;" class="task-functions">
+                  <div fxFlex></div>
+                  <!-- button for menu for pop up to delete -->
+                  <button [matMenuTriggerFor]="deleteInProgressTask" mat-icon-button class="ml-xs">
+                    <mat-icon color="accent">menu</mat-icon>
+                  </button>
+                  <mat-menu #deleteInProgressTask="matMenu" x-position="before">
+                    <button class="matButton" (click)="deleteOne(item._id)" mat-menu-item>
+                      Remove for good!!
+                    </button>
+                  </mat-menu>
+                </mat-card-subtitle>
+                <!-- name of task -->
+                <mat-card-content> {{item.text}} </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </mat-card-content>
+
+      </mat-card>
+    </div>
+
     <!-- done list -->
     <div fxFlex>
       <mat-card class="mat-elevation-z0">
@@ -80,7 +119,7 @@
 
           <!-- setup for the drag and drop -->
           <div fxLayout="column" fxLayoutGap="10px" cdkDropList #doneList="cdkDropList" [cdkDropListData]="done"
-            [cdkDropListConnectedTo]="[todoList]" class="task-list" (cdkDropListDropped)="drop($event)">
+            [cdkDropListConnectedTo]="[todoList, inProgressList]" class="task-list" (cdkDropListDropped)="drop($event)">
 
             <div *ngFor="let item of done" cdkDrag>
               <!-- iterating over list and assigning each task to a card -->

@@ -40,7 +40,8 @@ const employeeSchema = new mongoose.Schema({
   firstName: {type: String},
   lastName: {type: String},
   todo: [itemSchema],
-  done: [itemSchema]
+  done: [itemSchema],
+  inProgress: [itemSchema]
 });
 
 module.exports = mongoose.model('Employee', employeeSchema);

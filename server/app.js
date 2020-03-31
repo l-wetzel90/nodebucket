@@ -32,7 +32,7 @@ app.use("/", express.static(path.join(__dirname, "../dist/nodebucket")));
  * Variables
  */
 
- //Kurt shared this for port connection
+//Kurt shared this for port connection
 // const port = normalizePort(process.env.PORT || "3000");
 
 const port = process.env.PORT || 3000; // server port
@@ -40,7 +40,7 @@ const port = process.env.PORT || 3000; // server port
 //require employee model
 const Employee = require("./models/employees");
 
-// TODO: This line will need to be replaced with your actual database connection string
+//  This line will need to be replaced with your actual database connection string
 const conn =
   "mongodb+srv://admin:admin@buwebdev-cluster-1-7jtao.mongodb.net/nodebucket?retryWrites=true&w=majority";
 
@@ -64,6 +64,7 @@ mongoose
 /**
  * API(s)
  */
+
 //FindEmployeeById
 app.get("/api/employees/:empId", (req, res, next) => {
   //get one employee
@@ -83,7 +84,7 @@ app.get("/api/employees/:empId/tasks", (req, res, next) => {
   //find all tasks
   Employee.findOne(
     { empId: req.params.empId },
-    "empId firstName todo done",
+    "empId firstName todo done inProgress",
     (err, employee) => {
       if (err) {
         console.log(err);
@@ -128,7 +129,7 @@ app.post("/api/employees/:empId/tasks", (req, res, next) => {
   }); //end of findOne method
 }); //end of api post
 
-//UpdateTask:   maybe taskId in url
+//UpdateTask:
 app.put("/api/employees/:empId/tasks", (req, res, next) => {
   //update task to done
   Employee.findOne({ empId: req.params.empId }, (err, employee) => {
@@ -140,7 +141,8 @@ app.put("/api/employees/:empId/tasks", (req, res, next) => {
 
       employee.set({
         todo: req.body.todo,
-        done: req.body.done
+        done: req.body.done,
+        inProgress: req.body.inProgress
       });
 
       //save to db
@@ -173,6 +175,9 @@ app.delete("/api/employees/:empId/tasks/:taskId", function(req, res, next) {
       const doneItem = employee.done.find(
         item => item._id.toString() === req.params.taskId
       );
+      const inProgressItem = employee.inProgress.find(
+        item => item._id.toString() === req.params.taskId
+      );
 
       //if/else to remove task from todo or done
       if (todoItem) {
@@ -185,7 +190,7 @@ app.delete("/api/employees/:empId/tasks/:taskId", function(req, res, next) {
             console.log("Deleted " + emp1);
             res.json(emp1);
           }
-        }); //end of save
+        });
       } else if (doneItem) {
         employee.done.id(doneItem._id).remove();
         employee.save(function(err, emp2) {
@@ -195,8 +200,19 @@ app.delete("/api/employees/:empId/tasks/:taskId", function(req, res, next) {
           } else {
             console.log("Deleted " + emp2);
             res.json(emp2);
-          } //end of if else in save
-        }); //end of save
+          }
+        });
+      } else if (inProgressItem) {
+        employee.inProgress.id(inProgressItem._id).remove();
+        employee.save(function(err, emp3) {
+          if (err) {
+            console.log(err);
+            return next(err);
+          } else {
+            console.log("Deleted " + emp3);
+            res.json(emp3);
+          }
+        });
       } else {
         console.log("Unable to locate task: ${req.params.taskId}");
         res.status(200).send({

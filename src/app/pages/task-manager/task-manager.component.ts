@@ -31,15 +31,13 @@ export class TaskManagerComponent implements OnInit {
   tasks: any;
   todo: any;
   done: any;
+  inProgress:any;
   name: any;
   empId: any;
   message: any;
 
-  constructor(
-    private http: HttpClient,
-    private cookieService: CookieService,
-    private dialog: MatDialog
-  ) {
+  constructor(private http: HttpClient, private cookieService: CookieService, private dialog: MatDialog) {
+
     //get empId from cookie for api calls
     this.empId = this.cookieService.get("session_user");
     this.message = "";
@@ -51,6 +49,7 @@ export class TaskManagerComponent implements OnInit {
         this.name = this.tasks.firstName;
         this.todo = this.tasks.todo;
         this.done = this.tasks.done;
+        this.inProgress = this.tasks.inProgress;
         if (this.todo === 0) {
           this.message =
             "You don't have any tasks.  Add one below by clicking on the menu";
@@ -85,6 +84,7 @@ export class TaskManagerComponent implements OnInit {
               this.tasks = res;
               this.todo = this.tasks.todo;
               this.done = this.tasks.done;
+              this.inProgress = this.tasks.inProgress;
             }, //end of res
             err => {
               console.log(err);
@@ -99,10 +99,11 @@ export class TaskManagerComponent implements OnInit {
    * @param todo
    * @param done
    */
-  updateList(todo, done) {
+  updateList(todo, done, inProgress) {
     return this.http.put("/api/employees/" + this.empId + "/tasks", {
       todo,
-      done
+      done,
+      inProgress
     });
   }
 
@@ -128,11 +129,12 @@ export class TaskManagerComponent implements OnInit {
       console.log("Moved tasks to a new column");
     }
     //update
-    this.updateList(this.todo, this.done).subscribe(
+    this.updateList(this.todo, this.done, this.inProgress).subscribe(
       res => {
         this.tasks = res;
         this.todo = this.tasks.todo;
         this.done = this.tasks.done;
+        this.inProgress = this.tasks.inProgress;
       },
       err => {
         console.log("Error saving update tasks");
@@ -151,6 +153,7 @@ export class TaskManagerComponent implements OnInit {
             this.tasks = res;
             this.todo = this.tasks.todo;
             this.done = this.tasks.done;
+            this.inProgress = this.tasks.inProgress;
           }, //end of res
           err => {
             console.log(err);
