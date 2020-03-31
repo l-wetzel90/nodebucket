@@ -32,15 +32,13 @@ app.use("/", express.static(path.join(__dirname, "../dist/nodebucket")));
  * Variables
  */
 
-//Kurt shared this for port connection
-// const port = normalizePort(process.env.PORT || "3000");
-
-const port = process.env.PORT || 3000; // server port
+ // server port
+const port = process.env.PORT || 3000;
 
 //require employee model
 const Employee = require("./models/employees");
 
-//  This line will need to be replaced with your actual database connection string
+//  connection string
 const conn =
   "mongodb+srv://admin:admin@buwebdev-cluster-1-7jtao.mongodb.net/nodebucket?retryWrites=true&w=majority";
 
@@ -230,6 +228,8 @@ app.delete("/api/employees/:empId/tasks/:taskId", function(req, res, next) {
 http.createServer(app).listen(port, function() {
   console.log(`Application started and listening on port: ${port}`);
 }); // end http create server function
+
+
 
 /* ************* JUST IN CASE PROXY CONFIG
 ernie shared

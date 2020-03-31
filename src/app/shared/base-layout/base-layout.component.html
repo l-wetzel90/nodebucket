@@ -1,47 +1,48 @@
 <!-- /*
 ============================================
-; Title:  home.component.html
+; Title:  nodebucket
 ; Author: Richard Krasso
 ; Modified By: Loren Wetzel
 ; Date:   18 March 2020
-; Description: home component html
+; Description: base layout html
 ;===========================================
 */ -->
 
-<div fxLayout="column" >
+<div fxLayout="column">
 
   <!-- navigation -->
-  <nav fxFlex>
+  <nav fxFlex="8%">
     <mat-toolbar color="primary">
 
       <!-- navbar container -->
       <div class="navbar-container">
         <!-- logo -->
-        <button class="logo" routerLink="/" mat-button><img src="/assets/images/android-chrome-192x192.png" width="100px" height="60px"></button>
+        <button class="logo" routerLink="/" mat-button><img src="/assets/images/android-chrome-192x192.png"
+            width="100px" height="60px"></button>
 
         <button class="navbar-link" routerLink="/" mat-button>Home</button>
         <button class="navbar-link" routerLink="/about" mat-button>About</button>
       </div>
 
       <div fxFlex></div>
-     <button mat-button class="navbar-link" (click)="logout()">Logout</button>
+      <button mat-button class="navbar-link" (click)="logout()">Logout</button>
     </mat-toolbar>
   </nav>
 
   <!-- main content -->
-  <div fxFlex>
-    <main class="main-content" fxFlex="100%;">
+  <div fxFlex="82%;">
+    <main class="main-content">
       <router-outlet></router-outlet>
     </main>
   </div>
 
   <!-- footer -->
-  <div fxFlex>
+  <div fxFlex="10%">
     <footer class="footer">
       <mat-toolbar class="footer-content" color="primary">
         <p>
           &copy; {{year | date: 'yyyy'}} - nodebucket - <a href="https://www.bellevue.edu/" class="bu-link"
-            target="_blank" >Bellevue University</a>
+            target="_blank">Bellevue University</a>
         </p>
       </mat-toolbar>
     </footer>

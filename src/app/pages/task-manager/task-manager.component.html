@@ -1,6 +1,6 @@
 <!-- /*
 ============================================
-; Title:  home.component.html
+; Title:  nodebucket
 ; Author: Loren Wetzel
 ; Modified By:
 ; Date:   18 March 2020
@@ -8,17 +8,17 @@
 ;===========================================
 */ -->
 
-<div fxLayout="column" class="myContainer">
+<div fxFlex class="myContainer">
 
   <div fxLayout="row">
     <p>Hey {{name}}, how you doing? <br><br>
       {{message}} </p>
 
   </div>
-  <hr>
+  <!-- <hr> -->
 
   <!-- container for lists -->
-  <div fxLayout="row" fxLayoutGap="20px" class="tasks-container">
+  <div fxLayout="row" fxLayoutGap="10px" class="tasks-container">
 
     <!-- todo list -->
     <div fxFlex>
@@ -46,7 +46,7 @@
               <!-- iterating over list and assigning each task to a card -->
               <mat-card class="mat-elevation-z0 task-card" fxFlex>
 
-                <mat-card-subtitle style="height: 10% !important;" class="task-functions">
+                <mat-card-subtitle style="height: 5% !important;" class="task-functions">
                   <div fxFlex></div>
                   <!-- button for menu for pop up to delete -->
                   <button [matMenuTriggerFor]="deleteTodoTask" mat-icon-button class="ml-xs">
@@ -79,8 +79,9 @@
         <mat-card-content style="padding-top: 7px;">
 
           <!-- setup for the drag and drop -->
-          <div fxLayout="column" fxLayoutGap="10px" cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="inProgress"
-            [cdkDropListConnectedTo]="[todoList, doneList]" class="task-list" (cdkDropListDropped)="drop($event)">
+          <div fxLayout="column" fxLayoutGap="10px" cdkDropList #inProgressList="cdkDropList"
+            [cdkDropListData]="inProgress" [cdkDropListConnectedTo]="[todoList, doneList]" class="task-list"
+            (cdkDropListDropped)="drop($event)">
 
             <div *ngFor="let item of inProgress" cdkDrag>
               <!-- iterating over list and assigning each task to a card -->
