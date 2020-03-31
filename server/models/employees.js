@@ -8,28 +8,18 @@
 ;===========================================
 */
 
+/**
+ * this is how the book showed to do this
+ */
+
 const mongoose = require('mongoose');
-// const Item = require('./items');
 
-// const employeeSchema = new mongoose.Schema({
-//   empId: {
-//     type: String,
-//     unique: true,
-//     dropDups: true,
-//     required: true
-//   },
-//   firstName: {type: String},
-//   lastName: {type: String},
-//   todo: [Item],
-//   done: [Item]
-// });
-
+//item schema
 const itemSchema = new mongoose.Schema({
   text: {type: String}
-  // finished: { type: Boolean,
-  //   default: false }
 });
 
+//employee schema
 const employeeSchema = new mongoose.Schema({
   empId: {
     type: String,
@@ -46,14 +36,31 @@ const employeeSchema = new mongoose.Schema({
 
 module.exports = mongoose.model('Employee', employeeSchema);
 
-// const Employee = module.exports = mongoose.model('Employee', employeeSchema);
+/*
+const Item = require('./items');
 
-// module.exports.getById = (id, callback) => {
-//   var query = { empId: id };
-//   Employee.findById(query, callback);
-// };
+const employeeSchema = new mongoose.Schema({
+  empId: {
+    type: String,
+    unique: true,
+    dropDups: true,
+    required: true
+  },
+  firstName: {type: String},
+  lastName: {type: String},
+  todo: [Item],
+  done: [Item]
+});
 
-// module.exports.getAll = (callback) => {
-//   // var query = { };
-//   Employee.find({}, callback);
-// };
+const Employee = module.exports = mongoose.model('Employee', employeeSchema);
+
+module.exports.getById = (id, callback) => {
+  var query = { empId: id };
+  Employee.findById(query, callback);
+};
+
+module.exports.getAll = (callback) => {
+  // var query = { };
+  Employee.find({}, callback);
+};
+*/

@@ -9,15 +9,15 @@
 */
 
 import { Routes } from "@angular/router";
-import { BaseLayoutComponent } from "./shared/base-layout/base-layout.component";
-import { HomeComponent } from "./pages/home/home.component";
 import { AboutComponent } from "./pages/about/about.component";
+import { HomeComponent } from "./pages/home/home.component";
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { SignInComponent } from "./pages/sign-in/sign-in.component";
 import { TaskManagerComponent } from "./pages/task-manager/task-manager.component";
+import { AuthLayoutComponent } from "./shared/auth-layout/auth-layout.component";
+import { BaseLayoutComponent } from "./shared/base-layout/base-layout.component";
 import { AuthGuard } from "./shared/guards/auth.guard";
-import { NotFoundComponent } from "./pages/not-found/not-found.component";
-import { TaskCreateDialogComponent } from './shared/task-create-dialog/task-create-dialog.component';
-import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component';
+import { TaskCreateDialogComponent } from "./shared/task-create-dialog/task-create-dialog.component";
 
 export const AppRoutes: Routes = [
   {

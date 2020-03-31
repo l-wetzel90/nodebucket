@@ -1,19 +1,22 @@
-.wrapper{
-  min-height: 100vh;
-}
+/*
+============================================
+; Title:  nodebucket
+; Author: Richard Krasso
+; Modified By: Loren Wetzel
+; Date:   18 March 2020
+; Description: base layout css
+;===========================================
+*/
+
 .logo {
-  margin-left: 75px;
-  /* margin-left: 5%; */
+  /* margin-left: 75px; */
+  margin-left: 10%;
   font-size: 24px;
-  font-weight: lighter;;
+  font-weight: lighter;
 }
 
 .navbar-container {
   padding: 5px;
-}
-
-nav a:hover{
-  color: #00e676;
 }
 
 .navbar-link {
@@ -22,13 +25,16 @@ nav a:hover{
 }
 
 .main-content {
-  padding-left: 30px;
+  margin-left: 7%;
+  margin-right: 4%;
+  /* padding-left: 30px;  */
 }
 
 .footer {
   bottom: 0;
   position: absolute;
-  width: 100%;
+  /* position: fixed; */
+  min-width: 100%;
 }
 
 .footer-content {
@@ -36,10 +42,10 @@ nav a:hover{
   font-weight: lighter;
   /* padding-left: 100px; */
   letter-spacing: 3px;
-  padding-left: 5%;
+  padding-left: 15%;
 }
 
-footer a{
+footer a {
   color: #00e676;
 }
 
