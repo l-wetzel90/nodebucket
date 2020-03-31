@@ -31,7 +31,11 @@ app.use("/", express.static(path.join(__dirname, "../dist/nodebucket")));
 /**
  * Variables
  */
-const port = process.env.PORT || 3000; // server port
+
+ //Kurt shared this for port connection
+const port = normalizePort(process.env.PORT || "3000");
+
+// const port = process.env.PORT || 3000; // server port
 
 //require employee model
 const Employee = require("./models/employees");
