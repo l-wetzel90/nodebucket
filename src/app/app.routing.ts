@@ -51,13 +51,14 @@ export const AppRoutes: Routes = [
     component: AuthLayoutComponent,
     children: [
       {
+        path: "nope",
+        component: NotFoundComponent
+      },
+      {
         path: "login",
         component: SignInComponent
       },
-      {
-        path: "nope",
-        component: NotFoundComponent
-      }
+
     ]
   },
   {

@@ -25,7 +25,9 @@
           <mat-card-content>
             <mat-form-field fxFlex>
 
-              <input matInput [formControl]="form.controls['empId']" placeholder="Employee ID" />
+              <input matInput
+                    [formControl]="form.controls['empId']"
+                    placeholder="Employee ID" />
 
               <mat-error *ngIf="form.controls['empId'].hasError('required') && form.controls['empId'].touched">
                 Employee ID is a required field.
@@ -39,7 +41,12 @@
           </mat-card-content>
 
           <mat-card-actions>
-            <button type="submit" fxFlex mat-raised-button [disabled]="!form.valid" color="primary">Submit</button>
+            <button type="submit"
+                    fxFlex
+                    mat-raised-button
+                    [disabled]="!form.valid"
+                    color="primary"
+                    >Submit</button>
           </mat-card-actions>
 
         </form>

@@ -56,8 +56,10 @@ export class TaskManagerComponent implements OnInit {
         } else {
           this.message = "Here are your tasks";
         }
+        console.log(this.name+ ' is logged in');
       },
       err => {
+        console.log(this.name+ ' is not logged in');
         console.log(err);
       }
     ); //end of .subscribe
@@ -85,8 +87,11 @@ export class TaskManagerComponent implements OnInit {
               this.todo = this.tasks.todo;
               this.done = this.tasks.done;
               this.inProgress = this.tasks.inProgress;
+              console.log("created task");
+
             }, //end of res
             err => {
+              console.log("did not created task");
               console.log(err);
             }
           ); //end of subscribe
@@ -135,6 +140,7 @@ export class TaskManagerComponent implements OnInit {
         this.todo = this.tasks.todo;
         this.done = this.tasks.done;
         this.inProgress = this.tasks.inProgress;
+        console.log("updated tasks");
       },
       err => {
         console.log("Error saving update tasks");
@@ -154,6 +160,7 @@ export class TaskManagerComponent implements OnInit {
             this.todo = this.tasks.todo;
             this.done = this.tasks.done;
             this.inProgress = this.tasks.inProgress;
+            console.log("deleted task");
           }, //end of res
           err => {
             console.log(err);
