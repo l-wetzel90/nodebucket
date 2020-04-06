@@ -37,6 +37,10 @@ export class SignInComponent implements OnInit {
     });
   }
 
+  /**
+   * Login
+   * if empid is valid and in db it will create a cookie for auth
+   */
   login() {
     const empId = this.form.controls["empId"].value;
     console.log(empId);
