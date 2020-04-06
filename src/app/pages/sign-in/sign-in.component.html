@@ -19,6 +19,7 @@
 
     <mat-card-content>
 
+      <!-- every time i tried to break these down to line by line I would get an error.  -->
       <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
         <form [formGroup]="form" (ngSubmit)="login(); form.reset()" #loginForm="ngForm">
 
@@ -27,10 +28,12 @@
 
               <input matInput [formControl]="form.controls['empId']" placeholder="Employee ID" />
 
+              <!-- input field is required error  -->
               <mat-error *ngIf="form.controls['empId'].hasError('required') && form.controls['empId'].touched">
                 Employee ID is a required field.
               </mat-error>
 
+              <!-- input field has pattern error. pattern is only numeric -->
               <mat-error *ngIf="form.controls['empId'].hasError('pattern') && form.controls['empId'].touched">
                 Employee ID must be a numerical value.
               </mat-error>

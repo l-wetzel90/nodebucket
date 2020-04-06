@@ -20,27 +20,15 @@ import { Router } from "@angular/router";
 export class BaseLayoutComponent implements OnInit {
   year: number = Date.now();
 
-  constructor(private router: Router,
-    private cookieService: CookieService,
-    ) {
+  constructor(private router: Router, private cookieService: CookieService ) {
   }
 
   ngOnInit() {
   }
 
-  // isLoggedIn(){
-  //   if(this.cookieExists){
-  //     return true
-  //   }else{
-  //     return false
-  //   }
-  // }
-
   logout(){
-    // if(this.cookieExists){
       this.cookieService.delete('session_user','/');
       this.router.navigate(["/session/login"]);
-    // }
   }
 
 }
